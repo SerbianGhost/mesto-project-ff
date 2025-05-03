@@ -8,11 +8,11 @@ const createCard = (content, onDeleteCard) => {
   ).alt = `Фотография места: ${content.name}`;
   cardElement.querySelector(".card__title").textContent = content.name;
   const deleteButton = cardElement.querySelector(".card__delete-button");
-  deleteButton.addEventListener("click", onDeleteCard);
+  deleteButton.addEventListener("click", ()=>onDeleteCard(cardElement));
   return cardElement;
 };
-const deleteCard = (e) => {
-  e.target.closest(".card").remove();
+const deleteCard = (cardElement) => {
+  cardElement.remove();
 };
 
 initialCards.forEach((cardContent) => {
