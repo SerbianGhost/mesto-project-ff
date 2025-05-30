@@ -101,27 +101,11 @@
 
     <template id="card-template">
       <li class="places__item card">
-        <img
-          class="card__image"
-          src=""
-          alt=""
-          data-bind='{"data":{"src":"link","alt":"name"}}'
-        />
-        <button
-          type="button"
-          class="card__delete-button"
-          data-bind='{"event":{"click":"delete"}}'
-        ></button>
+        <img class="card__image" src="" alt="" />
+        <button type="button" class="card__delete-button"></button>
         <div class="card__description">
-          <h2
-            class="card__title"
-            data-bind='{"data":{"textContent":"name"}}'
-          ></h2>
-          <button
-            type="button"
-            class="card__like-button"
-            data-bind='{"event":{"click":"like"}}'
-          ></button>
+          <h2 class="card__title"></h2>
+          <button type="button" class="card__like-button"></button>
         </div>
       </li>
     </template>

@@ -1,48 +1,22 @@
-class Card {
-  constructor(containerClass, templateID, cardDataList) {
-    this.container = document.querySelector(`.${containerClass}`);
-    this.template = document.querySelector(`#${templateID}`).content;
-    this.cardDataList = cardDataList;
-  }
-  data(el, obj, content) {
-    for (const key of Object.keys(obj)) {
-      el[key] = content[obj[key]];
-    }
-  }
-  event(el, obj) {
-    for (const eventName of Object.keys(obj)) {
-      el.addEventListener(eventName, this[obj[eventName]]);
-    }
-  }
-  create(content) {
-    const cardElement = this.template.firstElementChild.cloneNode(true);
-    const cardChilds = [...cardElement.querySelectorAll("*")].filter((el) => {
-      return Object.keys(el.dataset).length > 0;
-    });
-    cardChilds.forEach((el) => {
-      const bind = JSON.parse(el.dataset.bind);
-      for (const method of Object.keys(bind)) {
-        this[method](el, bind[method], content);
-      }
+const cardTemplate = document.querySelector("#card-template").content;
+const createCard = (content, onDeleteCard, onLikeCard) => {
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 
-      el.removeAttribute("data-bind");
-    });
-    return cardElement;
-  }
-  delete(e) {
-    e.target.closest(".card").remove();
-  }
-  like(e) {
-    e.target.classList.toggle("card__like-button_is-active");
-  }
-  add(cardContent) {
-    const newCard = this.create(cardContent);
-    this.container.prepend(newCard);
-  }
-  generate() {
-    this.cardDataList.forEach((cardContent) => {
-      this.add(cardContent);
-    });
-  }
-}
-export default Card;
+  const deleteButton = cardElement.querySelector(".card__delete-button");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  cardElement.querySelector(".card__image").src = content.link;
+  cardElement.querySelector(
+    ".card__image"
+  ).alt = `Фотография места: ${content.name}`;
+  cardElement.querySelector(".card__title").textContent = content.name;
+  deleteButton.addEventListener("click", () => onDeleteCard(cardElement));
+  likeButton.addEventListener("click", () => onLikeCard(likeButton));
+  return cardElement;
+};
+const deleteCard = (cardElement) => {
+  cardElement.remove();
+};
+const likeCard = (element) => {
+  element.classList.toggle("card__like-button_is-active");
+};
+export { createCard, deleteCard, likeCard };
