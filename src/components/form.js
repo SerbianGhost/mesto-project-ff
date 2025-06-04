@@ -14,9 +14,9 @@ const fillFormInputs = (inputsArray, dataArray) => {
     input.value = dataArray[index].textContent;
   });
 };
-const modalRestForm = (modal) => {
+const modalResetForm = (modal) => {
   if (modal.querySelector(".popup__form")) {
     resetForm(modal.querySelector(".popup__form"));
   }
 };
-export { fillFormInputs, resetForm, modalRestForm, handleFormSubmit };
+export { fillFormInputs, resetForm, modalResetForm, handleFormSubmit };

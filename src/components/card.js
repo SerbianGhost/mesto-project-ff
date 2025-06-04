@@ -1,16 +1,16 @@
 const cardTemplate = document.querySelector("#card-template").content;
-const createCard = (content, onDeleteCard, onLikeCard) => {
+const createCard = (content, onDeleteCard, onLikeCard, onOpenModal) => {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-
+  const cardImage = cardElement.querySelector(".card__image");
+  const cardTitle = cardElement.querySelector(".card__title");
   const deleteButton = cardElement.querySelector(".card__delete-button");
   const likeButton = cardElement.querySelector(".card__like-button");
-  cardElement.querySelector(".card__image").src = content.link;
-  cardElement.querySelector(
-    ".card__image"
-  ).alt = `Фотография места: ${content.name}`;
-  cardElement.querySelector(".card__title").textContent = content.name;
+  cardImage.src = content.link;
+  cardImage.alt = `Фотография места: ${content.name}`;
+  cardTitle.textContent = content.name;
   deleteButton.addEventListener("click", () => onDeleteCard(cardElement));
   likeButton.addEventListener("click", () => onLikeCard(likeButton));
+  cardImage.addEventListener("click", () => onOpenModal(cardImage, cardTitle));
   return cardElement;
 };
 const deleteCard = (cardElement) => {
