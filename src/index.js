@@ -41,7 +41,6 @@ profileEditButton.addEventListener("click", () => {
     [nameInput, descriptionInput],
     [profileTitle, profileDescription]
   );
-  modalResetForm(profileEditForm);
   openModal(profleEditModal);
 });
 profileAddButton.addEventListener("click", () => {
@@ -60,11 +59,13 @@ modalArray.forEach((modal) => {
 });
 profileEditForm.addEventListener("submit", (e) => {
   const content = handleFormSubmit(e);
+  profileTitle.textContent = content.name;
+  profileDescription.textContent = content.description;
   closeModal(profleEditModal);
 });
 profileAddForm.addEventListener("submit", (e) => {
   const cardContent = handleFormSubmit(e);
   closeModal(profileAddModal);
-  const card = createCard(cardContent, deleteCard, likeCard);
+  const card = createCard(cardContent, deleteCard, likeCard, openCardModal);
   placesList.prepend(card);
 });
